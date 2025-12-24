@@ -46,5 +46,6 @@
 This is the _[Guide](https://reactrouter.com/start/framework/navigating#navigating)_.
 
 Both them are used in React router for navigation, but they are serve different purposes:
-`<Link>`: Used for basic navigation without reloading the page
-`<NavLink>`: Extends `<Link>` by allowing styles or class names to be applied dynamically when the link is active.<
+
+- `<Link>`: Used for basic navigation without reloading the page
+- `<NavLink>`: Extends `<Link>` by allowing styles or class names to be applied dynamically when the link is active.<
