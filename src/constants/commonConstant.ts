@@ -12,8 +12,13 @@ export const ROUTES = {
   CHECKOUT: "/checkout",
   MENU_DETAIL: "/menu/:id",
   ORDER_CONFIRMATION: "/order-confirmation",
-  MENU_MANAGEMENT: "/menu-management",
+  DASHBOARD: "./admin",
+  USER_MANAGEMENT: "/user-management",
   ORDER_MANAGEMENT: "/order-management",
   TEST: "/test",
 };
 export const CATEGORY = ["Home", "Test", "Dessert"];
+export const ROLES = {
+  ADMIN: "Admin",
+  CUSTOMER: "Customer",
+};

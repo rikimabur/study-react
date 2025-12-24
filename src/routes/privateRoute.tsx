@@ -1,29 +1,31 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectAuth } from "../store/authSlice";
+import { useAuth } from "../context/AuthContext";
 import { ROUTES } from "../constants/commonConstant";
 import type { Role } from "../models/rootModel";
 
 interface PrivateRouteProps {
   allowedRoles?: Role[];
 }
+
 const PrivateRoute = ({ allowedRoles }: PrivateRouteProps) => {
-  const { isAuthenticated, authData } = useSelector(selectAuth);
+  const { authData } = useAuth();
   const location = useLocation();
-  if (!isAuthenticated) {
+
+  // Not authenticated → redirect to login
+  if (!authData?.isAuthenticated) {
     return (
       <Navigate to={ROUTES.LOGIN} state={{ from: location.pathname }} replace />
     );
   }
-  if (
-    allowedRoles &&
-    authData?.user &&
-    !allowedRoles.includes(authData?.user.role)
-  ) {
-    return <Navigate to="/" replace />; // redirect if role not allowed
+
+  // Role check → redirect if role not allowed
+  const userRole = authData.user.role;
+  if (allowedRoles && !allowedRoles.includes(userRole)) {
+    return <Navigate to="/" replace />;
   }
 
-  return <Outlet />; // render nested public routes
+  // Render nested routes
+  return <Outlet />;
 };
 
 export default PrivateRoute;
