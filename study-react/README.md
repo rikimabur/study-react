@@ -1,2 +1,0 @@
-# study-react
-Learn react
