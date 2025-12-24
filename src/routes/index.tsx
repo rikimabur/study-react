@@ -4,6 +4,7 @@ import { lazy, Suspense } from "react";
 import LoadingSpinner from "../components/ui/loadingSpinner";
 import RouteWrapper from "./routeWrapper";
 import { AdminLayout, LoginLayout, UserLayout } from "../components/layout";
+import Test from "../pages/test";
 const LoginPage = lazy(() => import("../pages/login"));
 const HomePage = lazy(() => import("../pages/home"));
 const RegisterPage = lazy(() => import("../pages/register"));
@@ -46,6 +47,15 @@ const AppRoutes = () => (
             allowedRoles={["customer", "admin"]}
           >
             <OrderPage />
+          </RouteWrapper>
+        }
+      />
+      {/** This page is only for testing purpose */}
+      <Route
+        path={ROUTES.TEST}
+        element={
+          <RouteWrapper layout={UserLayout} isAccept={true}>
+            <Test />
           </RouteWrapper>
         }
       />

@@ -5,6 +5,7 @@ interface RouteWrapperProps {
   children: ReactNode;
   layout?: React.FC<{ children: ReactNode }>;
   allowedRoles?: string[];
+  isAccept?: boolean | false;
 }
 
 interface User {
@@ -16,18 +17,23 @@ const RouteWrapper: React.FC<RouteWrapperProps> = ({
   children,
   layout: Layout,
   allowedRoles = [],
+  isAccept,
 }) => {
-  const user: User | null = JSON.parse(localStorage.getItem("user") || "null");
-  const isLoggedIn = !!user?.token;
+  if (!isAccept) {
+    const user: User | null = JSON.parse(
+      localStorage.getItem("user") || "null"
+    );
+    const isLoggedIn = !!user?.token;
 
-  // Not logged in
-  if (!isLoggedIn && allowedRoles.length > 0) {
-    return <Navigate to="/login" replace />;
-  }
+    // Not logged in
+    if (!isLoggedIn && allowedRoles.length > 0) {
+      return <Navigate to="/login" replace />;
+    }
 
-  // Logged in but role not allowed
-  if (allowedRoles.length > 0 && !allowedRoles.includes(user!.role)) {
-    return <Navigate to="/unauthorized" replace />;
+    // Logged in but role not allowed
+    if (allowedRoles.length > 0 && !allowedRoles.includes(user!.role)) {
+      return <Navigate to="/unauthorized" replace />;
+    }
   }
 
   // Render with layout if provided

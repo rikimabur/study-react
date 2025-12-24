@@ -14,5 +14,6 @@ export const ROUTES = {
   ORDER_CONFIRMATION: "/order-confirmation",
   MENU_MANAGEMENT: "/menu-management",
   ORDER_MANAGEMENT: "/order-management",
+  TEST: "/test",
 };
 export const CATEGORY = ["Home", "Test", "Dessert"];
