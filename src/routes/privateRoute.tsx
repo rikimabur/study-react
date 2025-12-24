@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../contexts/authContext";
 import { ROUTES } from "../constants/commonConstant";
 import type { Role } from "../models/rootModel";
 
