@@ -11,7 +11,7 @@ const RegisterPage = lazy(() => import("../pages/register"));
 const OrderPage = lazy(() => import("../pages/order"));
 const OrderManagementPage = lazy(() => import("../pages/admin/cart"));
 const UserManagementPage = lazy(() => import("../pages/admin/users"));
-
+const DashboardPage = lazy(() => import("../pages/admin/dashboard"));
 export interface AppRoute {
   path: string;
   element: ReactNode;
@@ -19,6 +19,8 @@ export interface AppRoute {
   allowedRoles?: string[];
   protected?: boolean;
 }
+
+// JSON route config
 const appRoutesConfig: AppRoute[] = [
   {
     path: ROUTES.HOME,
@@ -57,6 +59,13 @@ const appRoutesConfig: AppRoute[] = [
     protected: true,
   },
   {
+    path: ROUTES.DASHBOARD,
+    element: <DashboardPage />,
+    layout: AdminLayout,
+    allowedRoles: [ROLES.ADMIN],
+    protected: true,
+  },
+  {
     path: ROUTES.TEST,
     element: <Test />,
     layout: UserLayout,
@@ -66,6 +75,7 @@ const appRoutesConfig: AppRoute[] = [
     element: <p>Page not found</p>,
   },
 ];
+
 const AppRoutes = () => (
   <Suspense fallback={<LoadingSpinner />}>
     <Routes>
@@ -83,4 +93,5 @@ const AppRoutes = () => (
     </Routes>
   </Suspense>
 );
+
 export default AppRoutes;

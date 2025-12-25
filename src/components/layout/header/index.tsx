@@ -77,8 +77,7 @@ function Header() {
                       className="text-truncate"
                       style={{ maxWidth: "120px" }}
                     >
-                      Hello{" "}
-                      {authData?.user.firstName?.split(" ")?.[0] || "User"}
+                      Hello {authData?.user?.firstName || "User"}
                     </span>
                   </button>
                   <ul
@@ -94,7 +93,7 @@ function Header() {
                     }}
                   >
                     {/* Removed header (avatar/name/role) for a cleaner minimal dropdown */}
-                    {authData?.user?.role == ROLES.ADMIN && (
+                    {authData?.user?.role.includes(ROLES.ADMIN) && (
                       <>
                         <li>
                           <NavLink

@@ -1,3 +1,4 @@
+import { ROLES } from "../constants/commonConstant";
 import type {
   AuthData,
   LoginModel,
@@ -27,6 +28,7 @@ export const authService = {
         lastName: data.lastName,
         gender: data.gender,
         image: data.image,
+        role: data.username == "emilys" ? ROLES.ADMIN : ROLES.CUSTOMER,
       },
       isAuthenticated: true,
     };
