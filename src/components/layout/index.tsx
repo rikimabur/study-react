@@ -17,6 +17,7 @@ export const AdminLayout: React.FC<LayoutProps> = ({ children }) => (
 export const UserLayout: React.FC<LayoutProps> = ({ children }) => (
   <div className="user-layout">
     <Header />
+    <main></main>
     {children}
     <Footer />
   </div>

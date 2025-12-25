@@ -1,4 +1,4 @@
-import { ROUTES } from "../../../constants/commonConstant";
+import { ROUTES, ROLES } from "../../../constants/commonConstant";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../../store/authSlice";
@@ -64,7 +64,7 @@ function Header() {
               </NavLink>
             </li>
 
-            {!isAuthenticated ? (
+            {isAuthenticated ? (
               <>
                 <li className="nav-item dropdown">
                   <button
@@ -77,8 +77,7 @@ function Header() {
                       className="text-truncate"
                       style={{ maxWidth: "120px" }}
                     >
-                      Hello{" "}
-                      {authData?.user.firstName?.split(" ")?.[0] || "User"}
+                      Hello {authData?.user?.firstName || "User"}
                     </span>
                   </button>
                   <ul
@@ -94,7 +93,7 @@ function Header() {
                     }}
                   >
                     {/* Removed header (avatar/name/role) for a cleaner minimal dropdown */}
-                    {/* {user?.role == ROLES.ADMIN && (
+                    {authData?.user?.role.includes(ROLES.ADMIN) && (
                       <>
                         <li>
                           <NavLink
@@ -107,18 +106,18 @@ function Header() {
                         </li>
                         <li>
                           <NavLink
-                            to={ROUTES.MENU_MANAGEMENT}
+                            to={ROUTES.USER_MANAGEMENT}
                             className="dropdown-item d-flex align-items-center gap-2 rounded-2"
                           >
                             <i className="bi bi-list-ul text-primary"></i>
-                            <span>Menu Management</span>
+                            <span>User Management</span>
                           </NavLink>
                         </li>
                         <li>
                           <hr className="dropdown-divider my-2" />
                         </li>
                       </>
-                    )} */}
+                    )}
 
                     <li>
                       <button

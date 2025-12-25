@@ -1,5 +1,4 @@
 import "./App.css";
-import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
@@ -16,7 +15,6 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           <div className="d-flex flex-column min-vh-100 bg-body">
-            <Header />
             <main className="flex-grow-1">
               <AppRoutes />
             </main>

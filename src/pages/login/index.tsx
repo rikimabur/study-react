@@ -1,4 +1,4 @@
-import { ROUTES } from "../../constants/commonConstant";
+import { ROLES, ROUTES } from "../../constants/commonConstant";
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -35,7 +35,11 @@ function Login() {
       const token = result.accessToken;
       toast.success("Login successful.");
       dispatch(setAuth({ result, token }));
-      navigate(location.state?.from || ROUTES.HOME, { replace: true });
+      if (result?.user?.role === ROLES.ADMIN) {
+        navigate(location.state?.from || ROUTES.DASHBOARD, { replace: true });
+      } else {
+        navigate(location.state?.from || ROUTES.HOME, { replace: true });
+      }
     } finally {
       setLoading(false);
     }

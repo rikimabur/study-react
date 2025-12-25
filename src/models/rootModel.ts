@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { ROLES } from "../constants/commonConstant";
 
 export interface UserModel {
   fullName?: string;
@@ -92,7 +93,7 @@ export interface UserProfile {
   lastName: string;
   gender?: string;
   image?: string;
-  role: Role | Role.CUSTOMER;
+  role: string;
 }
 
 export interface AuthData {
@@ -132,11 +133,19 @@ export interface OrderProduct {
   discountedPrice: number;
   thumbnail: string;
 }
-export enum Role {
-  GUEST = "GUEST",
-  CUSTOMER = "CUSTOMER",
-  ADMIN = "ADMIN",
-}
 export interface LayoutProps {
   children: ReactNode;
+}
+
+export interface UserItem {
+  id: number;
+  firstName: string;
+  age: number;
+}
+/// TODO: refactor code here.
+export interface UserPaginationApiResponse<T> {
+  users: T[];
+  total: number;
+  skip: number;
+  limit: number;
 }

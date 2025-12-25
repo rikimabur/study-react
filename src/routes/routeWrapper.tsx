@@ -1,15 +1,13 @@
 import React, { type ReactNode } from "react";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
 
 interface RouteWrapperProps {
   children: ReactNode;
   layout?: React.FC<{ children: ReactNode }>;
   allowedRoles?: string[];
-}
-
-interface User {
-  token: string;
-  role: string;
+  adminRedirectPath?: string; // optional prop to redirect admins
 }
 
 const RouteWrapper: React.FC<RouteWrapperProps> = ({
@@ -17,19 +15,22 @@ const RouteWrapper: React.FC<RouteWrapperProps> = ({
   layout: Layout,
   allowedRoles = [],
 }) => {
-  const user: User | null = JSON.parse(localStorage.getItem("user") || "null");
-  const isLoggedIn = !!user?.token;
-
+  const { isAuthenticated, authData } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const userRole = authData?.user?.role;
   // Not logged in
-  if (!isLoggedIn && allowedRoles.length > 0) {
+  if (!isAuthenticated && allowedRoles.length > 0) {
     return <Navigate to="/login" replace />;
   }
 
-  // Logged in but role not allowed
-  if (allowedRoles.length > 0 && !allowedRoles.includes(user!.role)) {
+  // Logged in but user role is not allowed
+  if (
+    allowedRoles.length > 0 &&
+    (!userRole || !allowedRoles.includes(userRole))
+  ) {
     return <Navigate to="/unauthorized" replace />;
   }
-
   // Render with layout if provided
   return Layout ? <Layout>{children}</Layout> : <>{children}</>;
 };
